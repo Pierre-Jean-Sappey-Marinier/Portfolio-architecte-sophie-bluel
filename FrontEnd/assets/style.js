@@ -33,7 +33,32 @@ fetch("http://localhost:5678/api/works")
     console.log(type_of_category);
 
     ajoutImage(values);
+
+    const boutonf0 = document.querySelector("#f0");
+    boutonf0.addEventListener("click", function () {
+      document.querySelector(".gallery").innerHTML = "";
+      ajoutObjet(values);
+    });
+
+    const boutonf1 = document.querySelector("#f1");
+    boutonf1.addEventListener("click", function () {
+      document.querySelector(".gallery").innerHTML = "";
+      ajoutAppartements(values);
+    });
+
+    const boutonf2 = document.querySelector("#f2");
+    boutonf2.addEventListener("click", function () {
+      document.querySelector(".gallery").innerHTML = "";
+      ajoutHotel_restaurants(values);
+    });
+
+    const boutonTous = document.querySelector(".a");
+    boutonTous.addEventListener("click", function () {
+      document.querySelector(".gallery").innerHTML = "";
+      ajoutImage(values);
+    });
   })
+
   .catch(function (err) {
     // Une erreur est survenue
     console.log("Error faut refaire ENCORE");
@@ -58,29 +83,6 @@ btn.appendChild(t);
 document.body.appendChild(btn).className = "a";
 document.querySelector(".filtres").appendChild(btn);
 
-// document.querySelector(".gallery").innerHTML = "";
-
-// Ajout du listener pour trier les pièces par ordre de prix croissant
-// const boutonTrier = document.querySelector("#f0");
-// boutonTrier.addEventListener("click", function (values) {
-//   objets = Array.from(values)
-//   objets.sort(function (a, b) {
-//   return b.prix - a.prix;
-// });
-// }
-
-// function ajoutFiltre(values) {
-//   for (let i = 0; i <= values.length; i++) {
-//     const figure = document.createElement("div");
-//     const g = document.createElement("img");
-//     g.src = values[i].imageUrl;
-//     figure.appendChild(g);
-//     document.body.appendChild(g).className = "figures";
-//     // figure.id = "f" + i;
-//     document.querySelector(".gallery").appendChild(g);
-//   }
-// }
-
 function ajoutImage(values) {
   for (let i = 0; i < values.length; i++) {
     var figure = document.createElement("figure");
@@ -90,5 +92,62 @@ function ajoutImage(values) {
     imageElement.src = values[i].imageUrl;
     imageElement.setAttribute("crossorigin", "anonymous");
     figure.appendChild(imageElement);
+    const auteur = document.createElement("p");
+    auteur.innerText = values[i].title;
+    figure.appendChild(auteur);
+  }
+}
+
+function ajoutObjet(values) {
+  for (let i = 0; i < values.length; i++) {
+    if (values[i].categoryId == 1) {
+      var figure = document.createElement("figure");
+      var section_gallery = document.querySelector(".gallery");
+      section_gallery.appendChild(figure);
+      const imageElement = document.createElement("img");
+      imageElement.src = values[i].imageUrl;
+      imageElement.setAttribute("crossorigin", "anonymous");
+      figure.appendChild(imageElement);
+      const auteur = document.createElement("p");
+      auteur.innerText = values[i].title;
+      figure.appendChild(auteur);
+    } else {
+    }
+  }
+}
+
+function ajoutAppartements(values) {
+  for (let i = 0; i < values.length; i++) {
+    if (values[i].categoryId == 2) {
+      var figure = document.createElement("figure");
+      var section_gallery = document.querySelector(".gallery");
+      section_gallery.appendChild(figure);
+      const imageElement = document.createElement("img");
+      imageElement.src = values[i].imageUrl;
+      imageElement.setAttribute("crossorigin", "anonymous");
+      figure.appendChild(imageElement);
+      const auteur = document.createElement("p");
+      auteur.innerText = values[i].title;
+      figure.appendChild(auteur);
+    } else {
+    }
+  }
+}
+
+function ajoutHotel_restaurants(values) {
+  for (let i = 0; i < values.length; i++) {
+    if (values[i].categoryId == 3) {
+      var figure = document.createElement("figure");
+      var section_gallery = document.querySelector(".gallery");
+      section_gallery.appendChild(figure);
+      const imageElement = document.createElement("img");
+      imageElement.src = values[i].imageUrl;
+      imageElement.setAttribute("crossorigin", "anonymous");
+      figure.appendChild(imageElement);
+      const auteur = document.createElement("p");
+      auteur.innerText = values[i].title;
+      figure.appendChild(auteur);
+    } else {
+    }
   }
 }
