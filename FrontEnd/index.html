@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <script src="./assets/style.js" defer></script>
+
     <link
       href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap"
       rel="stylesheet"
@@ -52,23 +54,10 @@
       </section>
       <section id="portfolio">
         <h2>Mes Projets</h2>
-        <script>
-          fetch("http://localhost:5678/api/categories")
-            .then(function (res) {
-              if (res.ok) {
-                return res.json();
-              }
-            })
-            .then(function (value) {
-              console.log(value);
-            })
-            .catch(function (err) {
-              // Une erreur est survenue
-            });
-        </script>
+
         <section class="filtres">
           <div class="quatre_filtres">
-            <div class="t">
+            <!-- <div class="t">
               <p>Tous</p>
             </div>
 
@@ -83,7 +72,7 @@
             <div class="e">
               <p>Hôtels & restaurants</p>
             </div>
-          </div>
+          </div> -->
         </section>
 
         <div class="gallery">

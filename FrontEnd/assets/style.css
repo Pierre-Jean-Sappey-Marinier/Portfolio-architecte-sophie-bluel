@@ -203,7 +203,7 @@ h1 > span {
   justify-content: center;
 }
 
-.t {
+/* .t {
   position: relative;
   display: flex;
   flex-direction: row;
@@ -237,11 +237,50 @@ h1 > span {
   background-color: white;
   font-family: "Syne";
   font-style: normal;
+} */
+
+.z {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  color: #1d6154;
+  padding: 9px 30px 9px 30px;
+
+  font-size: 16px;
+  line-height: 19px;
+  border: 2px solid #d9d9d9;
+  border-radius: 25px;
+  gap: 10px;
+  cursor: pointer;
+  background-color: white;
+  font-family: "Syne";
+  font-style: normal;
+}
+.a {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  color: white;
+  padding: 9px 30px 9px 30px;
+
+  font-size: 16px;
+  line-height: 19px;
+  border: 2px solid #d9d9d9;
+  border-radius: 25px;
+  gap: 10px;
+  cursor: pointer;
+  background-color: #1d6154;
+  font-family: "Syne";
+  font-style: normal;
+}
+
+/* .a p {
+  color: white;
 }
 
 .e .p {
   color: #1d6154;
-}
+} */
 
 /* END */
 
