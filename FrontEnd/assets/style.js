@@ -6,11 +6,11 @@ const tableau = fetch("http://localhost:5678/api/categories")
       return res.json();
     }
   })
-  .then(function (value) {
-    console.log(value);
-    const categorie = value.map((value) => value.name);
-    console.log(categorie);
-    ajoutFiltre(categorie);
+  .then(function (categories) {
+    console.log(categories);
+    const categoryNames = categories.map((categorie) => categorie.name);
+    console.log(categoryNames);
+    ajoutFiltre(categoryNames);
   })
 
   .catch(function (err) {
@@ -26,36 +26,36 @@ fetch("http://localhost:5678/api/works")
       return res.json();
     }
   })
-  .then(function (values) {
-    console.log(values);
-    const type_of_category = values.map((values) => values.categoryId);
+  .then(function (works) {
+    console.log(works);
+    const type_of_category = works.map((work) => work.categoryId);
 
     console.log(type_of_category);
 
-    ajoutImage(values);
+    ajoutObjet(works);
 
     const boutonf0 = document.querySelector("#f0");
     boutonf0.addEventListener("click", function () {
       document.querySelector(".gallery").innerHTML = "";
-      ajoutObjet(values);
+      ajoutObjet(works, 1);
     });
 
     const boutonf1 = document.querySelector("#f1");
     boutonf1.addEventListener("click", function () {
       document.querySelector(".gallery").innerHTML = "";
-      ajoutAppartements(values);
+      ajoutObjet(works, 2);
     });
 
     const boutonf2 = document.querySelector("#f2");
     boutonf2.addEventListener("click", function () {
       document.querySelector(".gallery").innerHTML = "";
-      ajoutHotel_restaurants(values);
+      ajoutObjet(works, 3);
     });
 
     const boutonTous = document.querySelector(".a");
     boutonTous.addEventListener("click", function () {
       document.querySelector(".gallery").innerHTML = "";
-      ajoutImage(values);
+      ajoutObjet(works);
     });
   })
 
@@ -83,24 +83,14 @@ btn.appendChild(t);
 document.body.appendChild(btn).className = "a";
 document.querySelector(".filtres").appendChild(btn);
 
-function ajoutImage(values) {
-  for (let i = 0; i < values.length; i++) {
-    var figure = document.createElement("figure");
-    var section_gallery = document.querySelector(".gallery");
-    section_gallery.appendChild(figure);
-    const imageElement = document.createElement("img");
-    imageElement.src = values[i].imageUrl;
-    imageElement.setAttribute("crossorigin", "anonymous");
-    figure.appendChild(imageElement);
-    const auteur = document.createElement("p");
-    auteur.innerText = values[i].title;
-    figure.appendChild(auteur);
-  }
-}
+function ajoutObjet(values, categoryId) {
+  console.log("id", categoryId);
 
-function ajoutObjet(values) {
   for (let i = 0; i < values.length; i++) {
-    if (values[i].categoryId == 1) {
+    console.log("tableau", values[i].categoryId);
+    console.log("if", values[i].categoryId == categoryId);
+
+    if (values[i].categoryId == categoryId || !categoryId) {
       var figure = document.createElement("figure");
       var section_gallery = document.querySelector(".gallery");
       section_gallery.appendChild(figure);
@@ -111,43 +101,6 @@ function ajoutObjet(values) {
       const auteur = document.createElement("p");
       auteur.innerText = values[i].title;
       figure.appendChild(auteur);
-    } else {
-    }
-  }
-}
-
-function ajoutAppartements(values) {
-  for (let i = 0; i < values.length; i++) {
-    if (values[i].categoryId == 2) {
-      var figure = document.createElement("figure");
-      var section_gallery = document.querySelector(".gallery");
-      section_gallery.appendChild(figure);
-      const imageElement = document.createElement("img");
-      imageElement.src = values[i].imageUrl;
-      imageElement.setAttribute("crossorigin", "anonymous");
-      figure.appendChild(imageElement);
-      const auteur = document.createElement("p");
-      auteur.innerText = values[i].title;
-      figure.appendChild(auteur);
-    } else {
-    }
-  }
-}
-
-function ajoutHotel_restaurants(values) {
-  for (let i = 0; i < values.length; i++) {
-    if (values[i].categoryId == 3) {
-      var figure = document.createElement("figure");
-      var section_gallery = document.querySelector(".gallery");
-      section_gallery.appendChild(figure);
-      const imageElement = document.createElement("img");
-      imageElement.src = values[i].imageUrl;
-      imageElement.setAttribute("crossorigin", "anonymous");
-      figure.appendChild(imageElement);
-      const auteur = document.createElement("p");
-      auteur.innerText = values[i].title;
-      figure.appendChild(auteur);
-    } else {
     }
   }
 }
