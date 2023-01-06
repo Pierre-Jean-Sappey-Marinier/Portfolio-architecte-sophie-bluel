@@ -174,10 +174,10 @@ h1 > span {
   display: flex;
   flex-wrap: nowrap;
   width: 100%;
-
+  gap: 10px;
   text-align: center;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: center;
 }
 
 .e:hover {
@@ -196,7 +196,7 @@ h1 > span {
 
   display: flex;
   flex-wrap: nowrap;
-  width: 100%;
+  /* width: 100%; */
   gap: 10px;
   text-align: center;
   align-items: center;
