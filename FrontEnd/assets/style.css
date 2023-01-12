@@ -152,6 +152,17 @@ section {
   margin: 50px 0;
 }
 
+.liste a {
+  text-align: end;
+  text-transform: none;
+  unicode-bidi: isolate;
+  font-variant-numeric: tabular-nums;
+  white-space: pre;
+  color: black;
+  text-decoration: none;
+  color: black;
+}
+
 h1 {
   display: flex;
   flex-direction: column;

@@ -116,6 +116,12 @@ ul {
   list-style: none;
 }
 
+a,
+u {
+  text-decoration: none;
+  color: black;
+}
+
 blockquote,
 q {
   quotes: none;
@@ -148,6 +154,11 @@ header {
   display: flex;
   justify-content: space-between;
   margin: 50px 0;
+}
+
+a:any-link {
+  color: forestgreen;
+  text-decoration-color: hotpink;
 }
 
 section {
