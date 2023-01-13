@@ -124,17 +124,20 @@ function postFetch(s, d) {
       email: s.value,
       password: d.value,
     }),
-  }).then((response) => {
-    console.log(response);
+  })
+    .then((response) => {
+      console.log("Réponse qu'on sait pas", response);
 
-    return response.json();
-  });
-  // .then((result) => {
-  //   if (result.message === "SUCCESS") {
-  //     alert("You are logged in.");
-  //     this.goToMain();
-  //   } else {
-  //     alert("Please check your login information.");
-  //   }
-  // });
+      return response;
+    })
+
+    .then((Response) => {
+      if (Response.status == "200") {
+        // alert("You are logged in.");
+        window.location.href = "http://127.0.0.1:5500/FrontEnd/index.html";
+      } else {
+        console.log("Réponse au login", Response.status);
+        alert("Erreur dans l'identifiant ou le mot de passe");
+      }
+    });
 }
