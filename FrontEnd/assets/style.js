@@ -9,7 +9,7 @@ const tableau = fetch("http://localhost:5678/api/categories")
   .then(function (categories) {
     console.log(categories);
     const categoryNames = categories.map((categorie) => categorie.name);
-    console.log(categoryNames);
+    console.log("zefzefzef", categoryNames);
     ajoutFiltre(categoryNames);
   })
 
@@ -104,3 +104,35 @@ function ajoutObjet(values, categoryId) {
     }
   }
 }
+// const el = document.getElementById("introduction");
+// const altt = document.getElementById("introduction"); // On récupère l'élément sur lequel on veut détecter le clic
+// altt.addEventListener("click", function (event) {
+//   document.getElementsByClassName("top_change").style.display = "block";
+//   event.preventDefault();
+// });
+
+// el.addEventListener("click", function () {
+//   //   document.getElementsByClassName("top_change")[0].style.visibility = "visible";
+//   document.getElementsByClassName("top_change").style.display = "block";
+// });
+
+// document.getElementById("introduction").onclick = function fun() {
+// document.getElementsByClassName("top_change")[0].style.visibility = "visible";
+// for (let el of document.querySelectorAll(".top_change"))
+//   el.style.visibility = "hidden";
+// [].forEach.call(document.querySelectorAll(".top_change"), function (el) {
+//   el.style.visibility = "hidden";
+// });
+//   document.getElementsByClassName("top_change").style.display = "block";
+// };
+
+const altt = document.getElementById("introduction");
+altt.addEventListener("click", function (event) {
+  document.getElementsByClassName("top_change_0")[0].style.display = "flex";
+  document.getElementsByClassName("top_change_1")[0].style.display = "block";
+  document.getElementsByClassName("top_change_2")[0].style.display = "block";
+  document.getElementsByClassName("top_change_3")[0].style.display = "block";
+
+  // document.getElementsByClassName("top_changes")[0].style.display = "flex";
+  console.log(document.getElementsByClassName("top_changess"));
+});

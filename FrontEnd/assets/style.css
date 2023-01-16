@@ -140,18 +140,100 @@ body {
   margin: auto;
   font-family: "Work Sans";
   font-size: 14px;
+  background-color: #fffef8;
 }
 
 header {
   display: flex;
   justify-content: space-between;
-  margin: 50px 0;
+  margin: 40px 0;
 }
 
+.top_change_0 {
+  position: relative;
+  height: 60px;
+  background-color: black;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  /* visibility: collapse; */
+}
+.top_change_0 i {
+  position: relative;
+  color: white;
+}
+.button_modified {
+  font-family: "Work Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  background-color: black;
+  border: none;
+  /* identical to box height */
+  text-align: center;
+
+  color: #ffffff;
+}
+.button_modifier {
+  font-family: "Work Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  background-color: #fffef8;
+  border: none;
+  /* identical to box height */
+  text-align: center;
+  border-radius: 20px;
+  padding: 10px 20px 10px 10px;
+}
+.button_published {
+  font-family: "Work Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  background-color: rgb(255, 255, 255);
+  border: none;
+  /* identical to box height */
+  text-align: center;
+  border-radius: 20px;
+  padding: 10px 20px 10px 20px;
+}
+.button_modifier:hover {
+  cursor: pointer;
+}
+
+.button_modifier:active {
+  background-color: none;
+  cursor: pointer;
+}
+.button_published:hover {
+  cursor: pointer;
+}
+
+.button_published:active {
+  background-color: none;
+  cursor: pointer;
+}
+
+.button_modified:hover {
+  cursor: pointer;
+}
+
+.button_modified:active {
+  background-color: none;
+  cursor: pointer;
+}
 section {
-  margin: 50px 0;
+  margin: 50px;
 }
-
+figure i {
+  margin-left: 50px;
+}
 .liste a {
   text-align: end;
   text-transform: none;
@@ -291,6 +373,11 @@ h1 > span {
 
 .e .p {
   color: #1d6154;
+  font-family: "Work Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16px;
 } */
 
 /* END */
@@ -342,11 +429,21 @@ li:hover {
 
 #introduction p {
   margin-bottom: 0.5em;
+  font-family: "Work Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16px;
 }
-
+.title {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+}
 #portfolio h2 {
   text-align: center;
   margin-bottom: 1em;
+  padding-right: 20px;
 }
 
 .gallery {
