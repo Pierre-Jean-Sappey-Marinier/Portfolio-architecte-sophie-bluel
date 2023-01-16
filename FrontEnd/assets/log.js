@@ -59,22 +59,19 @@ function postFetch(s, d) {
     }),
   })
     .then((response) => {
-      return response;
+      if (response.status == "200") {
+        // alert("You are logged in.");
+        console.log("in");
+        return response.json();
+      } else {
+        console.log("Réponse au login", response.status);
+        alert("Erreur dans l'identifiant ou le mot de passe");
+      }
     })
+    .then((response) => {
+      localStorage.setItem("token", response.token);
+      localStorage.setItem("userId", response.userId);
 
-    // .then((Response) => {
-    //   if (Response.status == "200") {
-    //     // alert("You are logged in.");
-    //     window.location.href = "http://127.0.0.1:5500/FrontEnd/index.html";
-    //   } else {
-    //     console.log("Réponse au login", Response.status);
-    //     alert("Erreur dans l'identifiant ou le mot de passe");
-    //   }
-    // })
-    .then(function (res) {
-      res.json();
-      console.log("Putain faut le voir", res.json());
-
-      return res.json();
+      window.location.href = "http://127.0.0.1:5500/FrontEnd/index.html";
     });
 }
