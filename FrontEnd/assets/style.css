@@ -160,6 +160,7 @@ header {
   gap: 20px;
   /* visibility: collapse; */
 }
+
 .top_change_0 i {
   position: relative;
   color: white;
@@ -205,19 +206,23 @@ header {
 }
 .button_modifier:hover {
   cursor: pointer;
+  outline-color: #1d6154;
 }
 
 .button_modifier:active {
   background-color: none;
   cursor: pointer;
+  outline-color: #1d6154;
 }
 .button_published:hover {
   cursor: pointer;
+  outline-color: #1d6154;
 }
 
 .button_published:active {
   background-color: none;
   cursor: pointer;
+  outline-color: #1d6154;
 }
 
 .button_modified:hover {
@@ -404,6 +409,9 @@ li:hover {
   color: #b1663c;
 }
 
+.liste :hover {
+  color: #b1663c;
+}
 #introduction {
   display: flex;
   align-items: center;

@@ -35,12 +35,11 @@ function getPass() {
   return y;
 }
 
-document.getElementById("email").addEventListener("change", getEmail);
-document.getElementById("password").addEventListener("change", getPass);
+// document.getElementById("email").addEventListener("change", getEmail);
+// document.getElementById("password").addEventListener("change", getPass);
 
-const elt = document.getElementById("submit"); // On récupère l'élément sur lequel on veut détecter le clic
-elt.addEventListener("click", function (event) {
-  // On écoute l'événement click
+const button = document.getElementById("submit");
+button.addEventListener("click", function (event) {
   event.preventDefault();
   const email = getEmail();
   const password = getPass();
@@ -60,7 +59,6 @@ function postFetch(s, d) {
   })
     .then((response) => {
       if (response.status == "200") {
-        // alert("You are logged in.");
         console.log("in");
         return response.json();
       } else {

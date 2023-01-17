@@ -7,15 +7,15 @@ const tableau = fetch("http://localhost:5678/api/categories")
     }
   })
   .then(function (categories) {
-    console.log(categories);
+    // console.log(categories);
     const categoryNames = categories.map((categorie) => categorie.name);
-    console.log("zefzefzef", categoryNames);
+    // console.log("zefzefzef", categoryNames);
     ajoutFiltre(categoryNames);
   })
 
   .catch(function (err) {
     // Une erreur est survenue
-    console.log("Error faut refaire");
+    // console.log("Error faut refaire");
   });
 
 //  chercher la liste des objet du back end
@@ -27,10 +27,10 @@ fetch("http://localhost:5678/api/works")
     }
   })
   .then(function (works) {
-    console.log(works);
+    // console.log(works);
     const type_of_category = works.map((work) => work.categoryId);
 
-    console.log(type_of_category);
+    // console.log(type_of_category);
 
     ajoutObjet(works);
 
@@ -61,7 +61,7 @@ fetch("http://localhost:5678/api/works")
 
   .catch(function (err) {
     // Une erreur est survenue
-    console.log("Error faut refaire ENCORE");
+    // console.log("Error faut refaire ENCORE");
   });
 
 // gestion des boutons filtres
@@ -84,11 +84,11 @@ document.body.appendChild(btn).className = "a";
 document.querySelector(".filtres").appendChild(btn);
 
 function ajoutObjet(values, categoryId) {
-  console.log("id", categoryId);
+  // console.log("id", categoryId);
 
   for (let i = 0; i < values.length; i++) {
-    console.log("tableau", values[i].categoryId);
-    console.log("if", values[i].categoryId == categoryId);
+    // console.log("tableau", values[i].categoryId);
+    // console.log("if", values[i].categoryId == categoryId);
 
     if (values[i].categoryId == categoryId || !categoryId) {
       var figure = document.createElement("figure");
@@ -125,6 +125,9 @@ function ajoutObjet(values, categoryId) {
 // });
 //   document.getElementsByClassName("top_change").style.display = "block";
 // };
+function clickOnIntroduction() {
+  document.getElementById("introduction").click();
+}
 
 const altt = document.getElementById("introduction");
 altt.addEventListener("click", function (event) {
@@ -136,3 +139,12 @@ altt.addEventListener("click", function (event) {
   // document.getElementsByClassName("top_changes")[0].style.display = "flex";
   console.log(document.getElementsByClassName("top_changess"));
 });
+
+console.log("Localstorage ?", localStorage.userId);
+function verifyLocalStorage() {
+  if (localStorage.userId == 1) {
+    clickOnIntroduction();
+  }
+}
+
+verifyLocalStorage();
