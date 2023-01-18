@@ -46,20 +46,21 @@ button.addEventListener("click", function (event) {
   postFetch(email, password);
 });
 
-function postFetch(s, d) {
+function postFetch(email, password) {
   fetch("http://localhost:5678/api/users/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      email: s.value,
-      password: d.value,
+      email: email.value,
+      password: password.value,
     }),
   })
     .then((response) => {
       if (response.status == "200") {
         console.log("in");
+
         return response.json();
       } else {
         console.log("Réponse au login", response.status);

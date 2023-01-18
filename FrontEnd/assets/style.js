@@ -125,12 +125,14 @@ function ajoutObjet(values, categoryId) {
 // });
 //   document.getElementsByClassName("top_change").style.display = "block";
 // };
+
 function clickOnIntroduction() {
   document.getElementById("introduction").click();
 }
 
 const altt = document.getElementById("introduction");
 altt.addEventListener("click", function (event) {
+  // make_admin_change_apprear();
   document.getElementsByClassName("top_change_0")[0].style.display = "flex";
   document.getElementsByClassName("top_change_1")[0].style.display = "block";
   document.getElementsByClassName("top_change_2")[0].style.display = "block";
@@ -140,11 +142,74 @@ altt.addEventListener("click", function (event) {
   console.log(document.getElementsByClassName("top_changess"));
 });
 
-console.log("Localstorage ?", localStorage.userId);
-function verifyLocalStorage() {
-  if (localStorage.userId == 1) {
-    clickOnIntroduction();
+// console.log("Localstorage ?", localStorage.length);
+// function verifyLocalStorage() {
+//   if (localStorage.length == 3) {
+//     clickOnIntroduction();
+//   }
+// }
+// verifyLocalStorage();
+
+const log_out = document.getElementById("logOut");
+log_out.addEventListener("click", function (event) {
+  localStorage.removeItem("token");
+  window.location.reload();
+});
+
+// function make_admin_change_apprear() {
+//   var change = document.getElementsByClassName("top_change");
+//   if (change.style.display === "none") {
+//     change.style.display = "block";
+//   } else {
+//     change.style.display = "none";
+//   }
+// }
+if (localStorage.length == 0) {
+  alert("GRAVE ERREUR, RECONNECTEZ VOUS");
+  window.location.href = "http://127.0.0.1:5500/FrontEnd/log.html";
+}
+
+function parseJwt(token) {
+  var base64Url = token.split(".")[1];
+  var base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+  var jsonPayload = decodeURIComponent(
+    window
+      .atob(base64)
+      .split("")
+      .map(function (c) {
+        return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+      })
+      .join("")
+  );
+
+  return JSON.parse(jsonPayload);
+}
+
+console.log(parseJwt(localStorage.token));
+const tok = parseJwt(localStorage.token);
+let date = new Date(+tok.exp * 1000).toISOString();
+// console.log(tok.exp);
+// console.log("DEBUG::try", new Date(+tok.exp * 1000).toISOString());
+function compare(date) {
+  var d1 = new Date(date); //yyyy-mm-dd
+  var d2 = new Date(Date.now()); //yyyy-mm-dd
+  if (d1 > d2) {
+    console.log("someting");
+    return true;
+  } else {
+    return false;
   }
 }
 
-verifyLocalStorage();
+console.log("Comparaison des deux dates", compare(date));
+
+console.log("DATE EXPIRATION TOKEN", date);
+
+console.log("date du jour", Date.now());
+
+if (compare(date) == true) {
+  console.log("action complétée");
+  clickOnIntroduction();
+} else {
+  alert("GRAVE ERREUR, RECONNECTEZ VOUS");
+}
