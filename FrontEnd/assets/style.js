@@ -104,27 +104,12 @@ function ajoutObjet(values, categoryId) {
     }
   }
 }
-// const el = document.getElementById("introduction");
-// const altt = document.getElementById("introduction"); // On récupère l'élément sur lequel on veut détecter le clic
-// altt.addEventListener("click", function (event) {
-//   document.getElementsByClassName("top_change").style.display = "block";
-//   event.preventDefault();
-// });
 
-// el.addEventListener("click", function () {
-//   //   document.getElementsByClassName("top_change")[0].style.visibility = "visible";
-//   document.getElementsByClassName("top_change").style.display = "block";
-// });
-
-// document.getElementById("introduction").onclick = function fun() {
-// document.getElementsByClassName("top_change")[0].style.visibility = "visible";
-// for (let el of document.querySelectorAll(".top_change"))
-//   el.style.visibility = "hidden";
-// [].forEach.call(document.querySelectorAll(".top_change"), function (el) {
-//   el.style.visibility = "hidden";
-// });
-//   document.getElementsByClassName("top_change").style.display = "block";
-// };
+var divsToHide = document.getElementsByClassName("top_change");
+for (var i = 0; i < divsToHide.length; i++) {
+  divsToHide[i].style.visibility = "collapse";
+}
+// document.getElementsByClassName("top_change")[0].setAttribute("type", visible);
 
 function clickOnIntroduction() {
   document.getElementById("introduction").click();
@@ -132,15 +117,32 @@ function clickOnIntroduction() {
 
 const altt = document.getElementById("introduction");
 altt.addEventListener("click", function (event) {
-  // make_admin_change_apprear();
-  document.getElementsByClassName("top_change_0")[0].style.display = "flex";
-  document.getElementsByClassName("top_change_1")[0].style.display = "block";
-  document.getElementsByClassName("top_change_2")[0].style.display = "block";
-  document.getElementsByClassName("top_change_3")[0].style.display = "block";
+  var divsToHide = document.getElementsByClassName("top_change");
+  for (var i = 0; i < divsToHide.length; i++) {
+    divsToHide[i].style.visibility = "visible";
+  }
 
-  // document.getElementsByClassName("top_changes")[0].style.display = "flex";
-  console.log(document.getElementsByClassName("top_changess"));
+  // var slides = document.getElementsByClassName("top_change");
+  // for (var i = 0; i < slides.length; i++) {
+  //   console.log(slides.length);
+  //   // slides[0].removeAttribute("hidden");
+  //   console.log(slides);
+  //   // document.getElementsByClassName("top_change")[0].removeAttribute("hidden");
+  //   console.log("après remove", slides);
+  // }
+  // console.log("all", document.querySelectorAll(".top_change")[0]);
+  // document.querySelectorAll(".top_change")[0].removeAttribute("hidden");
+  // make_admin_change_apprear();
+  // document.getElementsByClassName("top_change_0")[0].style.display = "flex";
+  // document.getElementsByClassName("top_change")[0].style.display = "block";
+  // var hiddenThings = document
+  //   .getElementsByClassName("top_change")
+  //   .setAttribute("display", "block");
 });
+
+// $("#lalala").each(function () {
+//   document.getElementById("lalala").removeAttribute("hidden");
+// });
 
 // console.log("Localstorage ?", localStorage.length);
 // function verifyLocalStorage() {
@@ -150,6 +152,7 @@ altt.addEventListener("click", function (event) {
 // }
 // verifyLocalStorage();
 
+// Fonction  qui permet de se DECONNECTER
 const log_out = document.getElementById("logOut");
 log_out.addEventListener("click", function (event) {
   localStorage.removeItem("token");
@@ -164,9 +167,12 @@ log_out.addEventListener("click", function (event) {
 //     change.style.display = "none";
 //   }
 // }
+
+// Fonction qui décode le Token
+
 if (localStorage.length == 0) {
   alert("GRAVE ERREUR, RECONNECTEZ VOUS");
-  window.location.href = "http://127.0.0.1:5500/FrontEnd/log.html";
+  // window.location.href = "http://127.0.0.1:5500/FrontEnd/log.html";
 }
 
 function parseJwt(token) {
@@ -185,29 +191,25 @@ function parseJwt(token) {
   return JSON.parse(jsonPayload);
 }
 
+// Bloc qui permet de comparer la date d'expiration du token à aujourd'hui
+
 console.log(parseJwt(localStorage.token));
 const tok = parseJwt(localStorage.token);
+console.log(tok.exp * 1000, Date.now());
 let date = new Date(+tok.exp * 1000).toISOString();
-// console.log(tok.exp);
-// console.log("DEBUG::try", new Date(+tok.exp * 1000).toISOString());
-function compare(date) {
-  var d1 = new Date(date); //yyyy-mm-dd
-  var d2 = new Date(Date.now()); //yyyy-mm-dd
+function isDateValid(date) {
+  var d1 = new Date(date);
+  var d2 = new Date(Date.now());
   if (d1 > d2) {
-    console.log("someting");
+    console.log("something");
     return true;
   } else {
     return false;
   }
 }
+// si la date est valide, on donne accès au mode Admin !
 
-console.log("Comparaison des deux dates", compare(date));
-
-console.log("DATE EXPIRATION TOKEN", date);
-
-console.log("date du jour", Date.now());
-
-if (compare(date) == true) {
+if (isDateValid(date) == true) {
   console.log("action complétée");
   clickOnIntroduction();
 } else {
