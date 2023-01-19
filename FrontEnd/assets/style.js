@@ -1,67 +1,53 @@
 //  Chercher les différentes catégories
+Promise.all([
+  fetch("http://localhost:5678/api/categories"),
+  fetch("http://localhost:5678/api/works"),
+])
 
-const tableau = fetch("http://localhost:5678/api/categories")
-  .then(function (res) {
-    if (res.ok) {
-      return res.json();
-    }
-  })
-  .then(function (categories) {
-    // console.log(categories);
-    const categoryNames = categories.map((categorie) => categorie.name);
-    // console.log("zefzefzef", categoryNames);
+  // mappe le tableau de "responses" dans le tableau "response.json()" pour lire leurs contenus
+  .then((responses) => Promise.all(responses.map((r) => r.json())))
+
+  .then(function (categoriesAndWorks) {
+    const categoryNames = categoriesAndWorks[0].map(
+      (categorie) => categorie.name
+    );
+
     ajoutFiltre(categoryNames);
+    return categoriesAndWorks;
   })
 
   .catch(function (err) {
-    // Une erreur est survenue
-    // console.log("Error faut refaire");
-  });
-
-//  chercher la liste des objet du back end
-
-fetch("http://localhost:5678/api/works")
-  .then(function (res) {
-    if (res.ok) {
-      return res.json();
-    }
+    console.log("Error faut refaire", err);
   })
-  .then(function (works) {
-    // console.log(works);
-    const type_of_category = works.map((work) => work.categoryId);
 
-    // console.log(type_of_category);
+  //  chercher la liste des objet du back end
 
-    ajoutObjet(works);
+  .then(function (categoriesAndWorks) {
+    const onlyWork = categoriesAndWorks[1];
 
-    const boutonf0 = document.querySelector("#f0");
-    boutonf0.addEventListener("click", function () {
-      document.querySelector(".gallery").innerHTML = "";
-      ajoutObjet(works, 1);
-    });
+    ajoutObjet(onlyWork);
 
-    const boutonf1 = document.querySelector("#f1");
-    boutonf1.addEventListener("click", function () {
-      document.querySelector(".gallery").innerHTML = "";
-      ajoutObjet(works, 2);
-    });
+    document.querySelectorAll('[id^="filtra"]').forEach((occurence) => {
+      let id = occurence.getAttribute("id");
+      occurence.addEventListener("click", function () {
+        document.querySelector(".gallery").innerHTML = "";
 
-    const boutonf2 = document.querySelector("#f2");
-    boutonf2.addEventListener("click", function () {
-      document.querySelector(".gallery").innerHTML = "";
-      ajoutObjet(works, 3);
+        let result = id.slice(-1);
+        console.log(result);
+        ajoutObjet(onlyWork, result);
+      });
     });
 
     const boutonTous = document.querySelector(".a");
     boutonTous.addEventListener("click", function () {
       document.querySelector(".gallery").innerHTML = "";
-      ajoutObjet(works);
+      ajoutObjet(onlyWork);
     });
   })
 
   .catch(function (err) {
-    // Une erreur est survenue
-    // console.log("Error faut refaire ENCORE");
+    console.log("Error faut refaire ENCORE", err);
+    console.error("Error faut refaire ENCORE", err);
   });
 
 // gestion des boutons filtres
@@ -72,7 +58,7 @@ function ajoutFiltre(value) {
     var t = document.createTextNode(value[i]);
     btn.appendChild(t);
     document.body.appendChild(btn).className = "z";
-    btn.id = "f" + i;
+    btn.id = "filtration" + (i + 1);
     document.querySelector(".filtres").appendChild(btn);
   }
 }
@@ -105,9 +91,9 @@ function ajoutObjet(values, categoryId) {
   }
 }
 
-var divsToHide = document.getElementsByClassName("top_change");
-for (var i = 0; i < divsToHide.length; i++) {
-  divsToHide[i].style.visibility = "collapse";
+var hiddenAdminElements = document.getElementsByClassName("top_change");
+for (var i = 0; i < hiddenAdminElements.length; i++) {
+  hiddenAdminElements[i].style.visibility = "collapse";
 }
 // document.getElementsByClassName("top_change")[0].setAttribute("type", visible);
 
@@ -117,9 +103,9 @@ function clickOnIntroduction() {
 
 const altt = document.getElementById("introduction");
 altt.addEventListener("click", function (event) {
-  var divsToHide = document.getElementsByClassName("top_change");
-  for (var i = 0; i < divsToHide.length; i++) {
-    divsToHide[i].style.visibility = "visible";
+  var hiddenAdminElements = document.getElementsByClassName("top_change");
+  for (var i = 0; i < hiddenAdminElements.length; i++) {
+    hiddenAdminElements[i].style.visibility = "visible";
   }
 
   // var slides = document.getElementsByClassName("top_change");
@@ -173,6 +159,7 @@ log_out.addEventListener("click", function (event) {
 if (localStorage.length == 0) {
   alert("GRAVE ERREUR, RECONNECTEZ VOUS");
   // window.location.href = "http://127.0.0.1:5500/FrontEnd/log.html";
+  document.getElementById("logOut")[0].style.visibility = "hidden";
 }
 
 function parseJwt(token) {
@@ -193,15 +180,13 @@ function parseJwt(token) {
 
 // Bloc qui permet de comparer la date d'expiration du token à aujourd'hui
 
-console.log(parseJwt(localStorage.token));
 const tok = parseJwt(localStorage.token);
-console.log(tok.exp * 1000, Date.now());
+
 let date = new Date(+tok.exp * 1000).toISOString();
 function isDateValid(date) {
   var d1 = new Date(date);
   var d2 = new Date(Date.now());
   if (d1 > d2) {
-    console.log("something");
     return true;
   } else {
     return false;
@@ -210,7 +195,6 @@ function isDateValid(date) {
 // si la date est valide, on donne accès au mode Admin !
 
 if (isDateValid(date) == true) {
-  console.log("action complétée");
   clickOnIntroduction();
 } else {
   alert("GRAVE ERREUR, RECONNECTEZ VOUS");
