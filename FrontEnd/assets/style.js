@@ -159,7 +159,6 @@ log_out.addEventListener("click", function (event) {
 if (localStorage.length == 0) {
   alert("GRAVE ERREUR, RECONNECTEZ VOUS");
   // window.location.href = "http://127.0.0.1:5500/FrontEnd/log.html";
-  document.getElementById("logOut")[0].style.visibility = "hidden";
 }
 
 function parseJwt(token) {
@@ -196,6 +195,8 @@ function isDateValid(date) {
 
 if (isDateValid(date) == true) {
   clickOnIntroduction();
+  document.getElementById("logOut").style.visibility = "visible";
+  document.getElementById("logIn").style.visibility = "collapse";
 } else {
   alert("GRAVE ERREUR, RECONNECTEZ VOUS");
 }

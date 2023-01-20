@@ -160,7 +160,11 @@ header {
   gap: 20px;
   /* visibility: collapse; */
 }
-
+#logIn {
+  display: flex;
+  padding-left: 10px;
+  text-align: center;
+}
 .top_change_0 i {
   position: relative;
   color: white;
