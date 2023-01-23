@@ -195,6 +195,21 @@ header {
   border-radius: 20px;
   padding: 10px 20px 10px 10px;
 }
+
+#myBtn {
+  font-family: "Work Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  background-color: #fffef8;
+  border: none;
+  /* identical to box height */
+  text-align: center;
+  border-radius: 20px;
+  padding: 10px 20px 10px 10px;
+}
+
 .button_published {
   font-family: "Work Sans";
   font-style: normal;
@@ -218,6 +233,17 @@ header {
   cursor: pointer;
   outline-color: #1d6154;
 }
+
+#myBtn:hover {
+  cursor: pointer;
+  outline-color: #1d6154;
+}
+
+#myBtn:active {
+  background-color: none;
+  cursor: pointer;
+  outline-color: #1d6154;
+}
 .button_published:hover {
   cursor: pointer;
   outline-color: #1d6154;
@@ -237,6 +263,91 @@ header {
   background-color: none;
   cursor: pointer;
 }
+/* POUR LA MODALE */
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 630px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  animation-name: animatetop;
+  animation-duration: 0.4s;
+  border-radius: 25px;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+@keyframes animatetop {
+  from {
+    top: -300px;
+    opacity: 0;
+  }
+  to {
+    top: 0;
+    opacity: 1;
+  }
+}
+.modalHeader {
+  width: 100%;
+  padding: 60px 0 46px 0;
+}
+.modalHeader p {
+  text-align: center;
+  font-family: "Work Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 26px;
+  line-height: 30px;
+}
+.modalHeader span {
+  position: relative;
+  justify-content: end;
+}
+.modal-content {
+  padding: 0px 100px 47px 100px;
+  display: flex;
+  flex-direction: row;
+  flex-flow: row wrap;
+  gap: 10px;
+}
+.modal-content figure {
+  /* display: flex;
+  flex-direction: row; */
+}
+.modal-content figure img {
+  /* display: flex;
+  flex-direction: row; */
+  width: 80px;
+  height: 100px;
+}
+
 section {
   margin: 50px;
 }
@@ -401,20 +512,7 @@ h1 > span {
   font-style: normal;
 }
 
-/* .a p {
-  color: white;
-}
-
-.e .p {
-  color: #1d6154;
-  font-family: "Work Sans";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 16px;
-} */
-
-/* END */
+/* pour la modale */
 
 h2 {
   font-family: "Syne";

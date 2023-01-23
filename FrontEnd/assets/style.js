@@ -43,6 +43,7 @@ Promise.all([
       document.querySelector(".gallery").innerHTML = "";
       ajoutObjet(onlyWork);
     });
+    afficherImagesDansLaModale(onlyWork);
   })
 
   .catch(function (err) {
@@ -95,69 +96,19 @@ var hiddenAdminElements = document.getElementsByClassName("top_change");
 for (var i = 0; i < hiddenAdminElements.length; i++) {
   hiddenAdminElements[i].style.visibility = "collapse";
 }
-// document.getElementsByClassName("top_change")[0].setAttribute("type", visible);
-
-function clickOnIntroduction() {
-  document.getElementById("introduction").click();
-}
-
-const altt = document.getElementById("introduction");
-altt.addEventListener("click", function (event) {
-  var hiddenAdminElements = document.getElementsByClassName("top_change");
-  for (var i = 0; i < hiddenAdminElements.length; i++) {
-    hiddenAdminElements[i].style.visibility = "visible";
-  }
-
-  // var slides = document.getElementsByClassName("top_change");
-  // for (var i = 0; i < slides.length; i++) {
-  //   console.log(slides.length);
-  //   // slides[0].removeAttribute("hidden");
-  //   console.log(slides);
-  //   // document.getElementsByClassName("top_change")[0].removeAttribute("hidden");
-  //   console.log("après remove", slides);
-  // }
-  // console.log("all", document.querySelectorAll(".top_change")[0]);
-  // document.querySelectorAll(".top_change")[0].removeAttribute("hidden");
-  // make_admin_change_apprear();
-  // document.getElementsByClassName("top_change_0")[0].style.display = "flex";
-  // document.getElementsByClassName("top_change")[0].style.display = "block";
-  // var hiddenThings = document
-  //   .getElementsByClassName("top_change")
-  //   .setAttribute("display", "block");
-});
-
-// $("#lalala").each(function () {
-//   document.getElementById("lalala").removeAttribute("hidden");
-// });
-
-// console.log("Localstorage ?", localStorage.length);
-// function verifyLocalStorage() {
-//   if (localStorage.length == 3) {
-//     clickOnIntroduction();
-//   }
-// }
-// verifyLocalStorage();
 
 // Fonction  qui permet de se DECONNECTER
 const log_out = document.getElementById("logOut");
 log_out.addEventListener("click", function (event) {
   localStorage.removeItem("token");
+  localStorage.removeItem("userId");
   window.location.reload();
 });
-
-// function make_admin_change_apprear() {
-//   var change = document.getElementsByClassName("top_change");
-//   if (change.style.display === "none") {
-//     change.style.display = "block";
-//   } else {
-//     change.style.display = "none";
-//   }
-// }
 
 // Fonction qui décode le Token
 
 if (localStorage.length == 0) {
-  alert("GRAVE ERREUR, RECONNECTEZ VOUS");
+  alert("Je vous conseille de vous connecter");
   // window.location.href = "http://127.0.0.1:5500/FrontEnd/log.html";
 }
 
@@ -194,9 +145,62 @@ function isDateValid(date) {
 // si la date est valide, on donne accès au mode Admin !
 
 if (isDateValid(date) == true) {
-  clickOnIntroduction();
+  for (var i = 0; i < hiddenAdminElements.length; i++) {
+    hiddenAdminElements[i].style.visibility = "visible";
+  }
   document.getElementById("logOut").style.visibility = "visible";
   document.getElementById("logIn").style.visibility = "collapse";
 } else {
   alert("GRAVE ERREUR, RECONNECTEZ VOUS");
+}
+
+// MODALE //
+
+// Get the modal
+var modal = document.getElementById("myModal");
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on the button, open the modal
+btn.onclick = function () {
+  modal.style.display = "block";
+};
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function () {
+  modal.style.display = "none";
+};
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function (event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+};
+
+// Ajout du contenu dans la modale !
+
+function afficherImagesDansLaModale(values, categoryId) {
+  console.log("id", categoryId);
+
+  for (let i = 0; i < values.length; i++) {
+    // console.log("tableau", values[i].categoryId);
+    // console.log("if", values[i].categoryId == categoryId);
+
+    if (values[i].categoryId == categoryId || !categoryId) {
+      var figure = document.createElement("figure");
+      var section_gallery = document.querySelector(".modal-content");
+      section_gallery.appendChild(figure);
+      const imageElement = document.createElement("img");
+      imageElement.src = values[i].imageUrl;
+      imageElement.setAttribute("crossorigin", "anonymous");
+      figure.appendChild(imageElement);
+      const auteur = document.createElement("p");
+      auteur.innerText = "éditer";
+      figure.appendChild(auteur);
+    }
+  }
 }
