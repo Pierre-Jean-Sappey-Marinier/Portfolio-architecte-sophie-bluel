@@ -1,10 +1,12 @@
-//  Chercher les différentes catégories
+//  On promise ALL afin de syncroniser les FETCH
+
 Promise.all([
   fetch("http://localhost:5678/api/categories"),
   fetch("http://localhost:5678/api/works"),
 ])
 
   // mappe le tableau de "responses" dans le tableau "response.json()" pour lire leurs contenus
+
   .then((responses) => Promise.all(responses.map((r) => r.json())))
 
   .then(function (categoriesAndWorks) {
@@ -12,7 +14,7 @@ Promise.all([
       (categorie) => categorie.name
     );
 
-    ajoutFiltre(categoryNames);
+    ajoutFiltre(categoryNames); // Appel de la fonction pour ajouter automatiquemant le bon nombre de filtre
     return categoriesAndWorks;
   })
 
@@ -20,12 +22,13 @@ Promise.all([
     console.log("Error faut refaire", err);
   })
 
-  //  chercher la liste des objet du back end
-
   .then(function (categoriesAndWorks) {
     const onlyWork = categoriesAndWorks[1];
 
+    //  Appel de fonction ajoutObjet() qui ajoute les projets dans le site
     ajoutObjet(onlyWork);
+
+    // fonctions de filtre actif
 
     document.querySelectorAll('[id^="filtra"]').forEach((occurence) => {
       let id = occurence.getAttribute("id");
@@ -43,6 +46,8 @@ Promise.all([
       document.querySelector(".gallery").innerHTML = "";
       ajoutObjet(onlyWork);
     });
+
+    // Appel de fonction afficherImagesDansLaModale() qui ajoute les images dans la modale
     afficherImagesDansLaModale(onlyWork);
   })
 
@@ -51,8 +56,7 @@ Promise.all([
     console.error("Error faut refaire ENCORE", err);
   });
 
-// gestion des boutons filtres
-
+// Fonction ajoutFiltre()
 function ajoutFiltre(value) {
   for (let i = 0; i < value.length; i++) {
     var btn = document.createElement("button");
@@ -70,13 +74,9 @@ btn.appendChild(t);
 document.body.appendChild(btn).className = "a";
 document.querySelector(".filtres").appendChild(btn);
 
+// Fonction ajoutObjet()
 function ajoutObjet(values, categoryId) {
-  // console.log("id", categoryId);
-
   for (let i = 0; i < values.length; i++) {
-    // console.log("tableau", values[i].categoryId);
-    // console.log("if", values[i].categoryId == categoryId);
-
     if (values[i].categoryId == categoryId || !categoryId) {
       var figure = document.createElement("figure");
       var section_gallery = document.querySelector(".gallery");
@@ -92,12 +92,13 @@ function ajoutObjet(values, categoryId) {
   }
 }
 
+// Boucle qui cache les éléments du mode ADMIN
 var hiddenAdminElements = document.getElementsByClassName("top_change");
 for (var i = 0; i < hiddenAdminElements.length; i++) {
   hiddenAdminElements[i].style.visibility = "collapse";
 }
 
-// Fonction  qui permet de se DECONNECTER
+// Fonction  qui permet de se DECONNECTER vidant le local storage
 const log_out = document.getElementById("logOut");
 log_out.addEventListener("click", function (event) {
   localStorage.removeItem("token");
@@ -105,13 +106,12 @@ log_out.addEventListener("click", function (event) {
   window.location.reload();
 });
 
-// Fonction qui décode le Token
-
+// Message d'erreur inutile
 if (localStorage.length == 0) {
   alert("Je vous conseille de vous connecter");
-  // window.location.href = "http://127.0.0.1:5500/FrontEnd/log.html";
 }
 
+// Fonction qui décode le Token
 function parseJwt(token) {
   var base64Url = token.split(".")[1];
   var base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
@@ -129,7 +129,6 @@ function parseJwt(token) {
 }
 
 // Bloc qui permet de comparer la date d'expiration du token à aujourd'hui
-
 const tok = parseJwt(localStorage.token);
 
 let date = new Date(+tok.exp * 1000).toISOString();
@@ -142,8 +141,8 @@ function isDateValid(date) {
     return false;
   }
 }
-// si la date est valide, on donne accès au mode Admin !
 
+// si la date est valide, on donne accès au mode Admin !
 if (isDateValid(date) == true) {
   for (var i = 0; i < hiddenAdminElements.length; i++) {
     hiddenAdminElements[i].style.visibility = "visible";
@@ -207,9 +206,31 @@ function afficherImagesDansLaModale(values, categoryId) {
       figure.appendChild(auteur);
     }
   }
+  const barre = document.createElement("div");
+  barre.classList.add("barre");
+  section_gallery.appendChild(barre);
+
+  const addPhoto = document.createElement("div");
+  addPhoto.classList.add("add_photo");
+  addPhoto.innerText = "Ajouter une photo";
+  section_gallery.appendChild(addPhoto);
+
+  const removeGallery = document.createElement("div");
+  removeGallery.classList.add("remove_gallery");
+  removeGallery.innerText = "Supprimer la galerie";
+  section_gallery.appendChild(removeGallery);
+
+  addDiv(lalala, tamère, "du texte pour faire plaisir");
 }
 
-// document.getElementsByClassName("moveIcone")[0].style.visibility = "collapse";
+// function addDiv(constName, divName, text) {
+//   var constName = document.createElement("div");
+//   constName.classList.add(divName);
+//   constName.innerText = text;
+//   section_gallery.appendChild(constName);
+// }
+
+// Permet de faire apparaitre l'icone de Drag and Drop au passage de la souris
 btn.addEventListener("click", function (event) {
   var hiddenAdmModaleImages = document.getElementsByClassName("move_icone");
   for (var u = 0; u < hiddenAdmModaleImages.length; u++) {

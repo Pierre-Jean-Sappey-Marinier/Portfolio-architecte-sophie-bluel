@@ -365,6 +365,45 @@ header {
   color: white;
 }
 
+.barre {
+  width: 100%;
+  border: 1px solid #b3b3b3;
+  margin-top: 60px;
+}
+
+.add_photo {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  color: white;
+  padding: 9px 30px 9px 30px;
+  margin-top: 35px;
+
+  font-size: 16px;
+  line-height: 19px;
+  border: 2px solid #d9d9d9;
+  border-radius: 25px;
+  gap: 10px;
+  cursor: pointer;
+  background-color: #1d6154;
+  font-family: "Syne";
+  font-style: normal;
+  margin-left: 23%;
+}
+.remove_gallery {
+  color: red;
+  font-family: "Syne";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+
+  color: #d65353;
+  margin-left: 30%;
+  margin-top: 20px;
+}
+
 section {
   margin: 50px;
 }
