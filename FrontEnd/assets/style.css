@@ -438,6 +438,8 @@ figure:hover > .move_icone {
 
 #modale_ajout_photo svg {
   padding: 28px 0 21px 180px;
+  /* display: none; */
+  position: relative;
 }
 #modale_ajout_photo i {
   position: absolute;
@@ -451,6 +453,57 @@ figure:hover > .move_icone {
   right: -72px;
 }
 /* ATTENTION A SUPPRIMER PAR LA SUITE  */
+.image-preview-container {
+  width: 50%;
+
+  margin: 0 auto;
+
+  border-radius: 20px;
+}
+
+.image-preview-container img {
+  width: 100%;
+  display: none;
+  margin-bottom: 30px;
+  height: 184px;
+  width: 129px;
+  object-fit: cover;
+  position: absolute;
+  top: 126px;
+  left: 140px;
+}
+.image-preview-container input {
+  display: none;
+}
+
+.image-preview-container label {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  color: white;
+  padding: 9px 30px 9px 30px;
+
+  font-size: 16px;
+  line-height: 19px;
+  border: 0px solid #d9d9d9;
+  border-radius: 25px;
+  gap: 10px;
+  cursor: pointer;
+  background-color: #cbd6dc;
+
+  font-family: "Work Sans";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+  text-align: center;
+
+  color: #306685;
+}
+
+/* .zone_bleu > * {
+  display: none;
+} */
 
 /* ATTENTION A SUPPRIMER PAR LA SUITE  */
 
@@ -515,6 +568,8 @@ figure:hover > .move_icone {
   text-align: center;
   margin-right: 27%;
   color: #306685;
+
+  display: none;
 }
 .label-file:hover {
   color: #25a5c4;
@@ -550,7 +605,10 @@ figure:hover > .move_icone {
 
   color: #306685;
 }
-
+.hide_on_upload {
+  display: none;
+  visibility: hidden;
+}
 .format {
   display: flex;
   flex-direction: row;

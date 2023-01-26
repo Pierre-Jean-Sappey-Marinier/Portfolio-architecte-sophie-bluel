@@ -251,7 +251,6 @@ function afficherImagesDansLaModale(values, categoryId) {
   section_gallery.insertAdjacentHTML("beforeend", htmlAutor);
 
   const modaleNextPage = document.querySelector(".add_photo");
-  console.log(modaleNextPage);
   modaleNextPage.addEventListener("click", function () {
     const modal = document.querySelector(".modal-content");
     modal.classList.add("hidden");
@@ -270,22 +269,33 @@ function afficherImagesDansLaModale(values, categoryId) {
 </svg>
 
 </form>
-<label for="file" class="label-file">+ Ajouter une photo</label>
-<input id="file" class="input-file" type="file">
 
+<div class="image-preview-container">
+<div class="preview">
+  <img id="preview-selected-image" />
+</div>
+<label class="label_modal" for="file-upload">+ Ajouter une photo</label>
+<input
+  type="file"
+  id="file-upload"
+  accept="image/*"
+  onchange="previewImage(event);"
+/>
+</div>
 <div class="format">jpg, png : 4mo max</div>
         </div>
 
 
-        <form class="titre">
+        <form  class="titre" >
           <label class="titre_case" for="Titre">Titre</label>
           <input type="text" name="titre" id="titre" />
+
           <label class="label_case" for="select">Catégorie</label>
-          <select name="pets" id="select">
+          <select name="selection" id="select">
           <option value="">--Please choose an option--</option>
-          <option value="Objet">Objet</option>
-          <option value="Appartements">Appartements</option>
-          <option value="Hôtels & restaurants">Hôtels & restaurants</option>
+          <option value="11111111111111111111111111111111111111">Objet</option>
+          <option value="2">Appartements</option>
+          <option value="3">Hôtels & restaurants</option>
       </select>
 
           <div class="barre"></div>
@@ -296,8 +306,63 @@ function afficherImagesDansLaModale(values, categoryId) {
     
     `;
     section_gallery.insertAdjacentHTML("beforeend", ajoutPhoto);
+
+    const sendProject = document.getElementById("valider");
+    sendProject.addEventListener("click", function (event) {
+      var form = document.getElementsByClassName("titre")[0];
+      console.log("avant event prevent", form);
+      event.preventDefault();
+      console.log("formulaire", form);
+      postFetchNewProject();
+      // postFetch(email, password);
+    });
+  });
+}
+var newImage = document.getElementById("preview-selected-image");
+
+function postFetchNewProject(newImage) {
+  fetch("http://localhost:5678/api/works", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      newImage,
+      // email: email.value,
+      // password: password.value,
+    }),
+  }).then((response) => {
+    if (response.status == "200") {
+      console.log("in");
+
+      return response.json();
+    } else {
+      console.log("Réponse au login", response.status);
+      alert("Erreur ");
+    }
   });
 }
 
-// Now fake the file upload, since GitHub does not handle file uploads
-// and returns a 404
+const previewImage = (event) => {
+  const imageFiles = event.target.files;
+
+  const imageFilesLength = imageFiles.length;
+
+  if (imageFilesLength > 0) {
+    const imageSrc = URL.createObjectURL(imageFiles[0]);
+
+    const imagePreviewElement = document.querySelector(
+      "#preview-selected-image"
+    );
+
+    imagePreviewElement.src = imageSrc;
+
+    imagePreviewElement.style.display = "block";
+    var imageSelected = document.getElementById("preview-selected-image");
+
+    if (imageSelected.clientHeight !== 0) {
+      var hiddenAddPhotoModal = document.querySelector(".label_modal");
+      hiddenAddPhotoModal.classList.add("hide_on_upload");
+    }
+  }
+};
