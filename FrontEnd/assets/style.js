@@ -228,7 +228,9 @@ function afficherImagesDansLaModale(values, categoryId) {
 
       const iconeTrash = document.createElement("div");
       iconeTrash.classList.add("texte-editer");
-      iconeTrash.innerHTML = '<i class="fa-solid fa-trash-can fa-sm"></i>';
+      iconeTrash.innerHTML = `<i class="fa-solid fa-trash-can fa-sm poubelle${
+        i + 1
+      } "></i>`;
       const moveIcone = document.createElement("div");
       moveIcone.classList.add("move_icone");
 
@@ -242,6 +244,7 @@ function afficherImagesDansLaModale(values, categoryId) {
       figure.appendChild(auteur);
     }
   }
+
   // const division = document.createElement("div");
   // division.classList.add("IfLog");
   const htmlAutor = `<div class="barre"></div>
@@ -260,6 +263,7 @@ function afficherImagesDansLaModale(values, categoryId) {
     <section id="modale_ajout_photo">
     <i class="fa-solid fa-arrow-left-long fa-2xl"></i></i><span class="close">&times;</span>
         <p>Ajout photo</p>
+        <form id="formulaire_image" >
         <div class="zone_bleu">
     
         <svg width="58" height="58" viewBox="0 0 58 58" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -268,7 +272,6 @@ function afficherImagesDansLaModale(values, categoryId) {
 <path d="M7.00004 46C7.23404 46 7.47004 45.918 7.66004 45.751L23.973 31.389L34.275 41.69C34.666 42.081 35.298 42.081 35.689 41.69C36.08 41.299 36.08 40.667 35.689 40.276L30.882 35.469L40.063 25.415L51.324 35.738C51.731 36.111 52.364 36.083 52.737 35.676C53.11 35.269 53.083 34.636 52.675 34.263L40.675 23.263C40.479 23.084 40.218 22.995 39.955 23.001C39.69 23.013 39.44 23.13 39.261 23.326L29.467 34.053L24.724 29.31C24.35 28.937 23.752 28.918 23.356 29.266L6.33904 44.249C5.92404 44.614 5.88404 45.246 6.24904 45.661C6.44704 45.886 6.72304 46 7.00004 46Z" fill="#B9C5CC"/>
 </svg>
 
-</form>
 
 <div class="image-preview-container">
 <div class="preview">
@@ -276,30 +279,33 @@ function afficherImagesDansLaModale(values, categoryId) {
 </div>
 <label class="label_modal" for="file-upload">+ Ajouter une photo</label>
 <input
+name="image"
   type="file"
   id="file-upload"
   accept="image/*"
   onchange="previewImage(event);"
 />
 </div>
+
 <div class="format">jpg, png : 4mo max</div>
         </div>
 
 
-        <form  class="titre" >
+        <div class="adadad" >
           <label class="titre_case" for="Titre">Titre</label>
-          <input type="text" name="titre" id="titre" />
+          <input type="text" name="title" id="titre" />
 
           <label class="label_case" for="select">Catégorie</label>
-          <select name="selection" id="select">
+          <select name="category" id="select">
           <option value="">--Please choose an option--</option>
-          <option value="11111111111111111111111111111111111111">Objet</option>
-          <option value="2">Appartements</option>
-          <option value="3">Hôtels & restaurants</option>
+          <option name="1" value="1">Objet</option>
+          <option name="2" value="2">Appartements</option>
+          <option name="3" value="3">Hôtels & restaurants</option>
       </select>
 
           <div class="barre"></div>
           <input type="submit" id="valider" value="Valider" />
+          </div>
         </form>
         
       </section>
@@ -307,38 +313,33 @@ function afficherImagesDansLaModale(values, categoryId) {
     `;
     section_gallery.insertAdjacentHTML("beforeend", ajoutPhoto);
 
-    const sendProject = document.getElementById("valider");
-    sendProject.addEventListener("click", function (event) {
-      var form = document.getElementsByClassName("titre")[0];
-      console.log("avant event prevent", form);
-      event.preventDefault();
-      console.log("formulaire", form);
-      postFetchNewProject();
-      // postFetch(email, password);
-    });
-  });
-}
-var newImage = document.getElementById("preview-selected-image");
+    const formulaire = document.getElementById("formulaire_image");
+    formulaire.addEventListener("submit", recupData);
 
-function postFetchNewProject(newImage) {
-  fetch("http://localhost:5678/api/works", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      newImage,
-      // email: email.value,
-      // password: password.value,
-    }),
-  }).then((response) => {
-    if (response.status == "200") {
-      console.log("in");
+    function recupData(e) {
+      e.preventDefault();
 
-      return response.json();
-    } else {
-      console.log("Réponse au login", response.status);
-      alert("Erreur ");
+      postFetchs();
+    }
+
+    function postFetchs() {
+      fetch("http://localhost:5678/api/works", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+
+        body: new FormData(document.getElementById("formulaire_image")),
+      }).then((response) => {
+        if (response.status == "200") {
+          console.log("in");
+
+          return response.json();
+        } else {
+          console.log("Réponse au login", response.status);
+          alert("Erreur ");
+        }
+      });
     }
   });
 }
@@ -366,3 +367,5 @@ const previewImage = (event) => {
     }
   }
 };
+
+var tokc = localStorage.getItem("token");

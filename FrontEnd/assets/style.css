@@ -341,6 +341,9 @@ header {
 }
 .figure {
   position: relative;
+  /* width: 367px;
+  height: 489px;
+  object-fit: cover; */
 }
 .figure img {
   width: 78px;
@@ -624,7 +627,7 @@ figure:hover > .move_icone {
   text-align: center;
 }
 
-.titre {
+.adadad {
   display: flex;
   flex-direction: column;
   padding: 30px 0 0px 0;
@@ -951,7 +954,9 @@ li:hover {
 }
 
 .gallery img {
-  width: 100%;
+  width: 367px;
+  height: 489px;
+  object-fit: cover;
 }
 
 #contact {
