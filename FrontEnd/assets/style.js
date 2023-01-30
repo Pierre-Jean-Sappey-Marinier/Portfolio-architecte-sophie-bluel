@@ -49,6 +49,15 @@ Promise.all([
 
     // Appel de fonction afficherImagesDansLaModale() qui ajoute les images dans la modale
     afficherImagesDansLaModale(onlyWork);
+
+    document.querySelectorAll(".poubelle").forEach((occurence) => {
+      var idOfDeletedProject = occurence.getAttribute("id");
+      console.log("idOfDeletedProject", idOfDeletedProject);
+      occurence.addEventListener("click", function () {
+        deleteFetch(idOfDeletedProject);
+      });
+    });
+    console.log(document.querySelectorAll(".poubelle"));
   })
 
   .catch(function (err) {
@@ -79,6 +88,7 @@ function ajoutObjet(values, categoryId) {
   for (let i = 0; i < values.length; i++) {
     if (values[i].categoryId == categoryId || !categoryId) {
       var figure = document.createElement("figure");
+      figure.id = values[i].id;
       var section_gallery = document.querySelector(".gallery");
       section_gallery.appendChild(figure);
       const imageElement = document.createElement("img");
@@ -172,6 +182,14 @@ window.onclick = function (event) {
   }
 };
 
+// document.querySelectorAll('[class*="poube"]').forEach((occurence) => {
+//   var idOfDeletedProject = occurence.getAttribute("id");
+//   occurence.addEventListener("click", function () {
+//     alert("Gros con");
+//     // deleteFetch(idOfDeletedProject);
+//   });
+// });
+
 // function afficherImagesDansLaModale(values, categoryId) {
 //   // console.log("id", categoryId);
 
@@ -216,6 +234,7 @@ function afficherImagesDansLaModale(values, categoryId) {
     if (values[i].categoryId == categoryId || !categoryId) {
       var figure = document.createElement("figure");
       figure.classList.add("figure");
+      figure.id = values[i].id;
 
       var section_gallery = document.querySelector(".modal-content");
       section_gallery.appendChild(figure);
@@ -228,9 +247,9 @@ function afficherImagesDansLaModale(values, categoryId) {
 
       const iconeTrash = document.createElement("div");
       iconeTrash.classList.add("texte-editer");
-      iconeTrash.innerHTML = `<i class="fa-solid fa-trash-can fa-sm poubelle${
-        i + 1
-      } "></i>`;
+
+      iconeTrash.innerHTML = `<i id="${values[i].id}" class="fa-solid fa-trash-can fa-sm poubelle "></i>`;
+
       const moveIcone = document.createElement("div");
       moveIcone.classList.add("move_icone");
 
@@ -369,3 +388,18 @@ const previewImage = (event) => {
 };
 
 var tokc = localStorage.getItem("token");
+
+function deleteFetch(id) {
+  fetch(`http://localhost:5678/api/works/${id}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+  }).then((response) => {
+    if (response.status == "200" || "204") {
+      console.log("Project bien deleted !!! ");
+    } else {
+      console.log("Réponse a la deletion ", response.status);
+    }
+  });
+}
