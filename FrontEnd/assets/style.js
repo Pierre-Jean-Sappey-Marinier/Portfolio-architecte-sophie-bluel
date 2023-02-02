@@ -41,8 +41,8 @@ Promise.all([
       });
     });
 
-    const boutonTous = document.querySelector(".a");
-    boutonTous.addEventListener("click", function () {
+    const buttonAll = document.querySelector(".a");
+    buttonAll.addEventListener("click", function () {
       document.querySelector(".gallery").innerHTML = "";
       ajoutObjet(onlyWork);
     });
@@ -77,11 +77,11 @@ function ajoutFiltre(value) {
   }
 }
 
-const btn_tous = document.createElement("button");
+const btnAll = document.createElement("button");
 const textNode = document.createTextNode("Tous");
-btn_tous.appendChild(textNode);
-document.body.appendChild(btn_tous).className = "a";
-document.querySelector(".filtres").appendChild(btn_tous);
+btnAll.appendChild(textNode);
+document.body.appendChild(btnAll).className = "a";
+document.querySelector(".filtres").appendChild(btnAll);
 
 // Fonction ajoutObjet()
 function ajoutObjet(values, categoryId) {
@@ -89,15 +89,15 @@ function ajoutObjet(values, categoryId) {
     if (values[i].categoryId == categoryId || !categoryId) {
       const figure = document.createElement("figure");
       figure.id = values[i].id;
-      const section_gallery = document.querySelector(".gallery");
-      section_gallery.appendChild(figure);
+      const sectionGallery = document.querySelector(".gallery");
+      sectionGallery.appendChild(figure);
       const imageElement = document.createElement("img");
       imageElement.src = values[i].imageUrl;
       imageElement.setAttribute("crossorigin", "anonymous");
       figure.appendChild(imageElement);
-      const auteur = document.createElement("p");
-      auteur.innerText = values[i].title;
-      figure.appendChild(auteur);
+      const autor = document.createElement("p");
+      autor.innerText = values[i].title;
+      figure.appendChild(autor);
     }
   }
 }
@@ -105,16 +105,16 @@ function ajoutObjet(values, categoryId) {
 // Boucle qui cache les éléments du mode ADMIN
 const hiddenAdminElements = document.getElementsByClassName("top_change");
 if (localStorage.length !== 2) {
-  const top_changeSelector = document.querySelectorAll(".top_change");
-  [].forEach.call(top_changeSelector, function (hide) {
+  const topChangeSelector = document.querySelectorAll(".top_change");
+  [].forEach.call(topChangeSelector, function (hide) {
     hide.classList.add("hide_on_upload");
   });
 }
 
 if (localStorage.length === 2) {
-  const hide_filter = document.querySelectorAll(".filtres");
-  console.log("🚀 ~ file: style.js:116 ~ hide_filter", hide_filter);
-  [].forEach.call(hide_filter, function (hide) {
+  const hideFilter = document.querySelectorAll(".filtres");
+  console.log("🚀 ~ file: style.js:116 ~ hideFilter", hideFilter);
+  [].forEach.call(hideFilter, function (hide) {
     hide.classList.add("hide_on_upload");
   });
 }
@@ -124,8 +124,8 @@ if (localStorage.length === 2) {
 // }
 
 // Fonction  qui permet de se DECONNECTER vidant le local storage
-const log_out = document.getElementById("logOut");
-log_out.addEventListener("click", function (event) {
+const logOut = document.getElementById("logOut");
+logOut.addEventListener("click", function (event) {
   localStorage.removeItem("token");
   localStorage.removeItem("userId");
   window.location.reload();
@@ -228,9 +228,9 @@ function afficherImagesDansLaModale(values, categoryId) {
       figure.appendChild(iconeTrash);
       figure.appendChild(moveIcone);
 
-      const auteur = document.createElement("p");
-      auteur.innerText = "éditer";
-      figure.appendChild(auteur);
+      const autor = document.createElement("p");
+      autor.innerText = "éditer";
+      figure.appendChild(autor);
     }
   }
 
@@ -248,7 +248,7 @@ function afficherImagesDansLaModale(values, categoryId) {
     modal.classList.add("hidden");
     modal.classList.add("page2_visible");
 
-    const ajoutPhoto = `
+    const addPhotoInModal = `
     <section id="modale_ajout_photo">
     <i class="fa-solid fa-arrow-left-long fa-2xl"></i></i><span class="close">&times;</span>
         <p>Ajout photo</p>
@@ -300,10 +300,10 @@ name="image"
       </section>
     
     `;
-    modalGallery.insertAdjacentHTML("beforeend", ajoutPhoto);
+    modalGallery.insertAdjacentHTML("beforeend", addPhotoInModal);
 
-    const formulaire = document.getElementById("formulaire_image");
-    formulaire.addEventListener("submit", recupData);
+    const formId = document.getElementById("formulaire_image");
+    formId.addEventListener("submit", recupData);
 
     function recupData(e) {
       e.preventDefault();

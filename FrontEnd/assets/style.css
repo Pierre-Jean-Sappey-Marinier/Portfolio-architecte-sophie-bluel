@@ -285,7 +285,8 @@ header {
 .modal-content {
   box-sizing: border-box;
   background-color: #fefefe;
-  margin: 15% auto;
+  margin: auto;
+  margin-top: 10%;
   width: 630px;
   /* height: 770px; */
   padding: 20px;
@@ -710,8 +711,7 @@ figure:hover > .move_icone {
 /* section {
   margin: 50px;
 } */
-figure i {
-}
+
 .liste a {
   text-align: end;
   text-transform: none;
