@@ -169,6 +169,10 @@ header {
   position: relative;
   color: white;
 }
+#introduction figure .top_change {
+  padding-left: 57px;
+}
+
 .button_modified {
   font-family: "Work Sans";
   font-style: normal;
@@ -341,13 +345,13 @@ header {
 }
 .figure {
   position: relative;
-  /* width: 367px;
-  height: 489px;
-  object-fit: cover; */
+
+  object-fit: cover;
 }
 .figure img {
   width: 78px;
   height: 104px;
+  object-fit: cover;
 }
 .texte-editer {
   position: absolute;
@@ -938,6 +942,7 @@ li:hover {
   display: flex;
   justify-content: center;
   align-items: baseline;
+  padding-top: 20px;
 }
 #portfolio h2 {
   text-align: center;
