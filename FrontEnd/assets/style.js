@@ -1,5 +1,3 @@
-console.log("RELOAD");
-
 //  On promise ALL afin de syncroniser les FETCH
 
 Promise.all([
@@ -47,23 +45,6 @@ Promise.all([
 
     // Appel de fonction afficherImagesDansLaModale() qui ajoute les images dans la modale
     afficherImagesDansLaModale(onlyWork);
-
-    document.querySelectorAll(".poubelle").forEach((occurence) => {
-      const idOfDeletedProject = occurence.getAttribute("id");
-      occurence.addEventListener("click", function (event) {
-        deleteFetch(idOfDeletedProject);
-        const elementToDeleteInModal = document.getElementById(
-          `${idOfDeletedProject}`
-        );
-        elementToDeleteInModal.remove();
-        const portfolioId = document.getElementById("portfolio");
-        const elementToDelete = document.getElementById(
-          `${idOfDeletedProject}`
-        );
-        elementToDelete.remove();
-      });
-    });
-    // console.log(document.querySelectorAll(".poubelle"));
   })
 
   .catch(function (err) {
@@ -123,7 +104,6 @@ if (localStorage.length !== 2) {
 
 if (localStorage.length === 2) {
   const hideFilter = document.querySelectorAll(".filtres");
-  console.log("🚀 ~ file: style.js:116 ~ hideFilter", hideFilter);
   [].forEach.call(hideFilter, function (hide) {
     hide.classList.add("hide_on_upload");
   });
@@ -193,7 +173,6 @@ if (isDateValid(date) == true) {
 const modal = document.getElementById("myModal");
 const btn = document.getElementById("myBtn");
 const span = document.getElementsByClassName("close")[0];
-console.log("🚀 ~ file: style.js:182 ~ span", span);
 btn.onclick = function () {
   modal.style.display = "block";
 };
@@ -248,6 +227,14 @@ function ajoutdynamique(work) {
   const autor = document.createElement("p");
   autor.innerText = "éditer";
   figure.appendChild(autor);
+
+  iconeTrash.addEventListener("click", function (event) {
+    deleteFetch(work.id);
+
+    figure.remove();
+    const elementToDelete = document.getElementById(work.id);
+    elementToDelete.remove();
+  });
 }
 
 function afficherImagesDansLaModale(values) {
@@ -273,7 +260,7 @@ function afficherImagesDansLaModale(values) {
     <section id="modale_ajout_photo">
     <i class="fa-solid fa-arrow-left-long fa-2xl"></i></i><span class="close le-second">&times;</span>
         <p>Ajout photo</p>
-        <form id="formulaire_image">
+        <form id="formulaire_image" novalidate>
         <div class="zone_bleu">
     
         <svg width="58" height="58" viewBox="0 0 58 58" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -301,7 +288,6 @@ required
 <div class="format">jpg, png : 4mo max</div>
         </div>
 
-
         <div class="adadad" >
           <label class="titre_case" for="Titre">Titre</label>
           <input type="text" name="title" id="titre" required="required" />
@@ -315,13 +301,14 @@ required
       </select>
 
           <div class="barre"></div>
+          <div class="errorMessage hidden">Veuillez remplir tous les champs !</div>
           <input type="submit" id="valider" value="Valider" />
           </div>
         </form>
           
       </section>
-    
     `;
+
     modalGallery.insertAdjacentHTML("beforeend", addPhotoInModal);
 
     const span = document.getElementsByClassName("close")[1];
@@ -333,7 +320,17 @@ required
     function recupData(e) {
       e.preventDefault();
 
-      postFetchs();
+      const data = new FormData(document.getElementById("formulaire_image"));
+      const image = data.get("image");
+      const title = data.get("title");
+      const category = data.get("category");
+
+      if (title && category && image.name) {
+        document.querySelector(".errorMessage").classList.add("hidden");
+        postFetchs();
+      } else {
+        document.querySelector(".errorMessage").classList.remove("hidden");
+      }
     }
 
     function postFetchs() {

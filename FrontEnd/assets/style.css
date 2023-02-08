@@ -136,7 +136,7 @@ table {
 
 /** end reset css**/
 body {
-  max-width: 1140px;
+  max-width: 1400px;
   margin: auto;
   font-family: "Work Sans";
   font-size: 14px;
@@ -326,7 +326,7 @@ header {
   padding: 60px 0 46px 0;
 }
 
-.modalHiddena {
+.hidden {
   display: none;
 }
 
@@ -395,8 +395,10 @@ figure:hover > .move_icone {
   margin-top: 60px;
 }
 
-form:invalid {
-  border: 2px solid #ffdddd;
+.errorMessage {
+  color: red;
+  padding-top: 10px;
+  text-align: center;
 }
 
 form:valid #valider {
