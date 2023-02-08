@@ -1,3 +1,5 @@
+console.log("RELOAD");
+
 //  On promise ALL afin de syncroniser les FETCH
 
 Promise.all([
@@ -18,15 +20,11 @@ Promise.all([
     return categoriesAndWorks;
   })
 
-  .catch(function (err) {
-    console.log("Error faut refaire", err);
-  })
-
   .then(function (categoriesAndWorks) {
     const onlyWork = categoriesAndWorks[1];
 
-    //  Appel de fonction ajoutObjet() qui ajoute les projets dans le site
-    ajoutObjet(onlyWork);
+    //  Appel de fonction ajoutObjets() qui ajoute les projets dans le site
+    ajoutObjets(onlyWork);
 
     // fonctions de filtre actif
 
@@ -37,14 +35,14 @@ Promise.all([
 
         let result = id.slice(-1);
         // console.log(result);
-        ajoutObjet(onlyWork, result);
+        ajoutObjets(onlyWork, result);
       });
     });
 
     const buttonAll = document.querySelector(".a");
     buttonAll.addEventListener("click", function () {
       document.querySelector(".gallery").innerHTML = "";
-      ajoutObjet(onlyWork);
+      ajoutObjets(onlyWork);
     });
 
     // Appel de fonction afficherImagesDansLaModale() qui ajoute les images dans la modale
@@ -52,9 +50,17 @@ Promise.all([
 
     document.querySelectorAll(".poubelle").forEach((occurence) => {
       const idOfDeletedProject = occurence.getAttribute("id");
-      // console.log("idOfDeletedProject", idOfDeletedProject);
-      occurence.addEventListener("click", function () {
+      occurence.addEventListener("click", function (event) {
         deleteFetch(idOfDeletedProject);
+        const elementToDeleteInModal = document.getElementById(
+          `${idOfDeletedProject}`
+        );
+        elementToDeleteInModal.remove();
+        const portfolioId = document.getElementById("portfolio");
+        const elementToDelete = document.getElementById(
+          `${idOfDeletedProject}`
+        );
+        elementToDelete.remove();
       });
     });
     // console.log(document.querySelectorAll(".poubelle"));
@@ -83,21 +89,25 @@ btnAll.appendChild(textNode);
 document.body.appendChild(btnAll).className = "a";
 document.querySelector(".filtres").appendChild(btnAll);
 
-// Fonction ajoutObjet()
-function ajoutObjet(values, categoryId) {
+function ajoutObjet(work) {
+  const figure = document.createElement("figure");
+  figure.id = work.id;
+  const sectionGallery = document.querySelector(".gallery");
+  sectionGallery.appendChild(figure);
+  const imageElement = document.createElement("img");
+  imageElement.src = work.imageUrl;
+  imageElement.setAttribute("crossorigin", "anonymous");
+  figure.appendChild(imageElement);
+  const autor = document.createElement("p");
+  autor.innerText = work.title;
+  figure.appendChild(autor);
+}
+
+// Fonction ajoutObjets()
+function ajoutObjets(values, categoryId) {
   for (let i = 0; i < values.length; i++) {
     if (values[i].categoryId == categoryId || !categoryId) {
-      const figure = document.createElement("figure");
-      figure.id = values[i].id;
-      const sectionGallery = document.querySelector(".gallery");
-      sectionGallery.appendChild(figure);
-      const imageElement = document.createElement("img");
-      imageElement.src = values[i].imageUrl;
-      imageElement.setAttribute("crossorigin", "anonymous");
-      figure.appendChild(imageElement);
-      const autor = document.createElement("p");
-      autor.innerText = values[i].title;
-      figure.appendChild(autor);
+      ajoutObjet(values[i]);
     }
   }
 }
@@ -132,9 +142,9 @@ logOut.addEventListener("click", function (event) {
 });
 
 // Message d'erreur inutile
-if (localStorage.length == 0) {
-  alert("Je vous conseille de vous connecter");
-}
+// if (localStorage.length == 0) {
+//   alert("Je vous conseille de vous connecter");
+// }
 
 // Fonction qui décode le Token
 function parseJwt(token) {
@@ -183,6 +193,7 @@ if (isDateValid(date) == true) {
 const modal = document.getElementById("myModal");
 const btn = document.getElementById("myBtn");
 const span = document.getElementsByClassName("close")[0];
+console.log("🚀 ~ file: style.js:182 ~ span", span);
 btn.onclick = function () {
   modal.style.display = "block";
 };
@@ -193,54 +204,64 @@ span.onclick = function () {
 
 window.onclick = function (event) {
   if (event.target == modal) {
-    modal.style.display = "none";
+    resetModal();
   }
 };
 
-function afficherImagesDansLaModale(values, categoryId) {
+const resetModal = () => {
+  const modal = document.getElementById("myModal");
+  modal.style.display = "none";
+  const modaleContent = document.querySelector(".modal-content");
+  modaleContent.classList.remove("hidden");
+  modaleContent.classList.remove("page2_visible");
+  const modaleAjoutPhoto = document.querySelector("#modale_ajout_photo");
+  modaleAjoutPhoto.remove();
+};
+
+function ajoutdynamique(work) {
+  const figure = document.createElement("figure");
+  figure.classList.add("figure");
+  figure.id = work.id;
+
+  const modalBarre = document.querySelector(".barre");
+  modalBarre.before(figure);
+
+  const imageElement = document.createElement("img");
+  imageElement.src = work.imageUrl;
+
+  imageElement.setAttribute("crossorigin", "anonymous");
+  figure.appendChild(imageElement);
+
+  const iconeTrash = document.createElement("div");
+  iconeTrash.classList.add("texte-editer");
+
+  iconeTrash.innerHTML = `<i id="${work.id}" class="fa-solid fa-trash-can fa-sm poubelle "></i>`;
+
+  const moveIcone = document.createElement("div");
+  moveIcone.classList.add("move_icone");
+
+  moveIcone.innerHTML =
+    '<i class="fa-solid fa-arrows-up-down-left-right "></i>';
+  figure.appendChild(iconeTrash);
+  figure.appendChild(moveIcone);
+
+  const autor = document.createElement("p");
+  autor.innerText = "éditer";
+  figure.appendChild(autor);
+}
+
+function afficherImagesDansLaModale(values) {
   // console.log("id", categoryId);
   const modalGallery = document.querySelector(".modal-content");
-
-  for (let i = 0; i < values.length; i++) {
-    if (values[i].categoryId == categoryId || !categoryId) {
-      const figure = document.createElement("figure");
-      figure.classList.add("figure");
-      figure.id = values[i].id;
-
-      modalGallery.appendChild(figure);
-
-      const imageElement = document.createElement("img");
-      imageElement.src = values[i].imageUrl;
-
-      imageElement.setAttribute("crossorigin", "anonymous");
-      figure.appendChild(imageElement);
-
-      const iconeTrash = document.createElement("div");
-      iconeTrash.classList.add("texte-editer");
-
-      iconeTrash.innerHTML = `<i id="${values[i].id}" class="fa-solid fa-trash-can fa-sm poubelle "></i>`;
-
-      const moveIcone = document.createElement("div");
-      moveIcone.classList.add("move_icone");
-
-      moveIcone.innerHTML =
-        '<i class="fa-solid fa-arrows-up-down-left-right "></i>';
-      figure.appendChild(iconeTrash);
-      figure.appendChild(moveIcone);
-
-      const autor = document.createElement("p");
-      autor.innerText = "éditer";
-      figure.appendChild(autor);
-    }
-  }
-
-  // const division = document.createElement("div");
-  // division.classList.add("IfLog");
   const htmlAutor = `<div class="barre"></div>
   <button class="add_photo" type="button">Ajouter une photo</button>
   <div class="remove_gallery"> Supprimer la galerie </div>
   `;
   modalGallery.insertAdjacentHTML("beforeend", htmlAutor);
+
+  for (let i = 0; i < values.length; i++) {
+    ajoutdynamique(values[i]);
+  }
 
   const modaleNextPage = document.querySelector(".add_photo");
   modaleNextPage.addEventListener("click", function () {
@@ -250,9 +271,9 @@ function afficherImagesDansLaModale(values, categoryId) {
 
     const addPhotoInModal = `
     <section id="modale_ajout_photo">
-    <i class="fa-solid fa-arrow-left-long fa-2xl"></i></i><span class="close">&times;</span>
+    <i class="fa-solid fa-arrow-left-long fa-2xl"></i></i><span class="close le-second">&times;</span>
         <p>Ajout photo</p>
-        <form id="formulaire_image" >
+        <form id="formulaire_image">
         <div class="zone_bleu">
     
         <svg width="58" height="58" viewBox="0 0 58 58" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -269,8 +290,9 @@ function afficherImagesDansLaModale(values, categoryId) {
 <label class="label_modal" for="file-upload">+ Ajouter une photo</label>
 <input
 name="image"
-  type="file"
-  id="file-upload"
+type="file"
+id="file-upload"
+required
   accept="image/*"
   onchange="previewImage(event);"
 />
@@ -282,10 +304,10 @@ name="image"
 
         <div class="adadad" >
           <label class="titre_case" for="Titre">Titre</label>
-          <input type="text" name="title" id="titre" />
+          <input type="text" name="title" id="titre" required="required" />
 
           <label class="label_case" for="select">Catégorie</label>
-          <select name="category" id="select">
+          <select name="category" id="select" required="required" >
           <option value="">--Please choose an option--</option>
           <option name="1" value="1">Objet</option>
           <option name="2" value="2">Appartements</option>
@@ -296,11 +318,14 @@ name="image"
           <input type="submit" id="valider" value="Valider" />
           </div>
         </form>
-        
+          
       </section>
     
     `;
     modalGallery.insertAdjacentHTML("beforeend", addPhotoInModal);
+
+    const span = document.getElementsByClassName("close")[1];
+    span.onclick = resetModal;
 
     const formId = document.getElementById("formulaire_image");
     formId.addEventListener("submit", recupData);
@@ -312,23 +337,31 @@ name="image"
     }
 
     function postFetchs() {
-      fetch("http://localhost:5678/api/works", {
+      return fetch("http://localhost:5678/api/works", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
 
         body: new FormData(document.getElementById("formulaire_image")),
-      }).then((response) => {
-        if (response.status == "200") {
-          // console.log("in");
+      })
+        .then((response) => {
+          if (response.status == "201") {
+            return response.json();
 
-          return response.json();
-        } else {
-          console.log("Réponse au login", response.status);
-          alert("Erreur ");
-        }
-      });
+            console.log("Response JSON", response.json());
+          } else {
+            console.log("Réponse au login", response.status);
+            alert("Erreur ");
+          }
+        })
+        .then((work) => {
+          ajoutObjet(work);
+
+          ajoutdynamique(work);
+
+          resetModal();
+        });
     }
   });
 }

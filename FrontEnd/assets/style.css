@@ -325,6 +325,11 @@ header {
   width: 100%;
   padding: 60px 0 46px 0;
 }
+
+.modalHiddena {
+  display: none;
+}
+
 .modalHeader p {
   text-align: center;
   font-family: "Work Sans";
@@ -388,6 +393,14 @@ figure:hover > .move_icone {
   width: 100%;
   border: 1px solid #b3b3b3;
   margin-top: 60px;
+}
+
+form:invalid {
+  border: 2px solid #ffdddd;
+}
+
+form:valid #valider {
+  background: #1d6154;
 }
 
 .add_photo {

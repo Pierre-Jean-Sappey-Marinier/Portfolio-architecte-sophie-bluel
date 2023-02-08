@@ -1,26 +1,3 @@
-// Création d'un FETCH pour varifier les log enregistrer
-// dans le back end ?
-
-// fetch("http://localhost:5678/api/users/login")
-//   .then(function (res) {
-//     if (res.ok) {
-//       return res.json();
-//     }
-//   })
-//   .then(function (categories) {
-//     console.log(categories);
-//     console.log("euuuuu");
-//   })
-
-//   .catch(function (err) {
-//     // Une erreur est survenue
-//     console.log("Error faut refaire");
-//   });
-
-// // Fonction de validation de Mot de Passe
-
-// Fonction pour
-
 function getEmail() {
   var x = document.getElementById("email");
   console.log(x);
@@ -34,9 +11,6 @@ function getPass() {
   console.log("valeur mdp", y.value);
   return y;
 }
-
-// document.getElementById("email").addEventListener("change", getEmail);
-// document.getElementById("password").addEventListener("change", getPass);
 
 const button = document.getElementById("submit");
 button.addEventListener("click", function (event) {
@@ -72,5 +46,9 @@ function postFetch(email, password) {
       localStorage.setItem("userId", response.userId);
 
       window.location.href = "http://127.0.0.1:5500/FrontEnd/index.html";
+    })
+    .catch(function (err) {
+      console.log("Error faut refaire ENCORE", err);
+      console.error("Error faut refaire ENCORE", err);
     });
 }
