@@ -162,6 +162,7 @@ if (isDateValid(date) == true) {
   for (let i = 0; i < hiddenAdminElements.length; i++) {
     hiddenAdminElements[i].style.visibility = "visible";
   }
+  document.getElementById("top-barre").style.display = "flex";
   document.getElementById("logOut").style.display = "block";
   document.getElementById("logIn").style.display = "none";
 } else {
