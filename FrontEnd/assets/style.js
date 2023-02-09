@@ -165,6 +165,10 @@ if (isDateValid(date) == true) {
   document.getElementById("top-barre").style.display = "flex";
   document.getElementById("logOut").style.display = "block";
   document.getElementById("logIn").style.display = "none";
+
+  // hiddenAdminElements.forEach(function (hide) {
+  //   hide.classList.remove("hide_on_upload");
+  // });
 } else {
   alert("GRAVE ERREUR, RECONNECTEZ VOUS");
 }
@@ -193,7 +197,7 @@ const resetModal = () => {
   modal.style.display = "none";
   const modaleContent = document.querySelector(".modal-content");
   modaleContent.classList.remove("hidden");
-  modaleContent.classList.remove("page2_visible");
+  // modaleContent.classList.remove("page2_visible");
   const modaleAjoutPhoto = document.querySelector("#modale_ajout_photo");
   modaleAjoutPhoto.remove();
 };
