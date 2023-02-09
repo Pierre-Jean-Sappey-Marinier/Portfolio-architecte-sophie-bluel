@@ -34,114 +34,120 @@
       </button>
     </div>
 
-    <header>
-      <h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
-      <nav>
-        <ul class="liste">
-          <li>projets</li>
-          <li>contact</li>
+    <div class="content">
+      <header>
+        <h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
+        <nav>
+          <ul class="liste">
+            <li>projets</li>
+            <li>contact</li>
 
-          <li id="logIn" style="visibility: visible">
-            <a href="./log.html">login</a>
-          </li>
+            <li id="logIn">
+              <a href="./log.html">login</a>
+            </li>
 
-          <button id="logOut" style="visibility: collapse">logout</button>
-          <li><img src="./assets/icons/instagram.png" alt="Instagram" /></li>
-        </ul>
-      </nav>
-    </header>
-    <main>
-      <section id="introduction">
-        <figure>
-          <img src="./assets/images/sophie-bluel.png" alt="" />
+            <button id="logOut" style="display: none">logout</button>
+            <li><img src="./assets/icons/instagram.png" alt="Instagram" /></li>
+          </ul>
+        </nav>
+      </header>
+      <main>
+        <section id="introduction">
+          <figure>
+            <img src="./assets/images/sophie-bluel.png" alt="" />
 
-          <div class="top_change">
-            <i class="fa-regular fa-pen-to-square fa-lg"></i>
-            <button class="button_modifier" type="button">modifier</button>
-          </div>
-        </figure>
+            <div class="top_change">
+              <i class="fa-regular fa-pen-to-square fa-lg"></i>
+              <button class="button_modifier" type="button">modifier</button>
+            </div>
+          </figure>
 
-        <article>
-          <div class="top_change">
-            <i class="fa-regular fa-pen-to-square fa-lg"></i
-            ><button class="button_modifier" type="button">modifier</button>
-          </div>
-          <h2>Designer d'espace</h2>
-          <p>
-            Je raconte votre histoire, je valorise vos idées. Je vous accompagne
-            de la conception à la livraison finale du chantier.
-          </p>
-          <p>
-            Chaque projet sera étudié en commun, de façon à mettre en valeur les
-            volumes, les matières et les couleurs dans le respect de l’esprit
-            des lieux et le choix adapté des matériaux. Le suivi du chantier
-            sera assuré dans le souci du détail, le respect du planning et du
-            budget.
-          </p>
-          <p>
-            En cas de besoin, une équipe pluridisciplinaire peut-être constituée
-            : architecte DPLG, décorateur(trice)
-          </p>
-        </article>
-      </section>
+          <article>
+            <div class="top_change">
+              <i class="fa-regular fa-pen-to-square fa-lg"></i
+              ><button class="button_modifier" type="button">modifier</button>
+            </div>
+            <h2>Designer d'espace</h2>
+            <p>
+              Je raconte votre histoire, je valorise vos idées. Je vous
+              accompagne de la conception à la livraison finale du chantier.
+            </p>
+            <p>
+              Chaque projet sera étudié en commun, de façon à mettre en valeur
+              les volumes, les matières et les couleurs dans le respect de
+              l’esprit des lieux et le choix adapté des matériaux. Le suivi du
+              chantier sera assuré dans le souci du détail, le respect du
+              planning et du budget.
+            </p>
+            <p>
+              En cas de besoin, une équipe pluridisciplinaire peut-être
+              constituée : architecte DPLG, décorateur(trice)
+            </p>
+          </article>
+        </section>
 
-      <section id="portfolio">
-        <div class="title">
-          <h2>Mes Projets</h2>
-          <div class="top_change">
-            <i class="fa-regular fa-pen-to-square fa-lg"></i
-            ><!--<button class="button_modifier" type="button">Modifier</button>-->
+        <section id="portfolio">
+          <div class="title">
+            <h2>Mes Projets</h2>
+            <div class="top_change">
+              <i class="fa-regular fa-pen-to-square fa-lg"></i
+              ><!--<button class="button_modifier" type="button">Modifier</button>-->
 
-            <button id="myBtn">modifier</button>
+              <button id="myBtn">modifier</button>
 
-            <div id="myModal" class="modal">
-              <div class="modal-content">
-                <div class="modalHeader">
-                  <span class="close le-premier">&times;</span>
-                  <p>La gallerie photo</p>
+              <div id="myModal" class="modal">
+                <div class="modal-content">
+                  <div class="modalHeader">
+                    <span class="close le-premier">&times;</span>
+                    <p>La gallerie photo</p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <section class="filtres">
-          <div class="quatre_filtres">
-            <!-- <div class="t">
-              <p>Tous</p>
+          <section class="filtres">
+            <div class="quatre_filtres">
+              <!-- <div class="t">
+                <p>Tous</p>
+              </div>
+
+              <div class="e">
+                <p>Objets</p>
+              </div>
+
+              <div class="e">
+                <p>Appartements</p>
+              </div>
+
+              <div class="e">
+                <p>Hôtels & restaurants</p>
+              </div> -->
             </div>
+          </section>
 
-            <div class="e">
-              <p>Objets</p>
-            </div>
-
-            <div class="e">
-              <p>Appartements</p>
-            </div>
-
-            <div class="e">
-              <p>Hôtels & restaurants</p>
-            </div> -->
-          </div>
+          <div class="gallery"></div>
         </section>
-
-        <div class="gallery"></div>
-      </section>
-      <section id="contact">
-        <h2>Contact</h2>
-        <p>Vous avez un projet ? Discutons-en !</p>
-        <form action="#" method="post">
-          <label for="name">Nom</label>
-          <input type="text" name="name" id="name" />
-          <label for="email">Email</label>
-          <input type="email" name="email" id="email" />
-          <label for="message">Message</label>
-          <textarea name="message" id="message" cols="30" rows="10"></textarea>
-          <input type="submit" value="Envoyer" />
-        </form>
-      </section>
-    </main>
-
+        <section id="contact">
+          <h2>Contact</h2>
+          <p>Vous avez un projet ? Discutons-en !</p>
+          <form action="#" method="post">
+            <label for="name">Nom</label>
+            <input type="text" name="name" id="name" />
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" />
+            <label for="message">Message</label>
+            <textarea
+              name="message"
+              id="message"
+              cols="30"
+              rows="10"
+            ></textarea>
+            <input type="submit" value="Envoyer" />
+          </form>
+        </section>
+      </main>
+    </div>
     <footer>
       <nav>
         <ul>

@@ -162,8 +162,8 @@ if (isDateValid(date) == true) {
   for (let i = 0; i < hiddenAdminElements.length; i++) {
     hiddenAdminElements[i].style.visibility = "visible";
   }
-  document.getElementById("logOut").style.visibility = "visible";
-  document.getElementById("logIn").style.visibility = "collapse";
+  document.getElementById("logOut").style.display = "block";
+  document.getElementById("logIn").style.display = "none";
 } else {
   alert("GRAVE ERREUR, RECONNECTEZ VOUS");
 }
