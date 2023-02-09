@@ -146,6 +146,11 @@ body {
   margin: auto;
 }
 
+main {
+  max-width: 950px;
+  margin: auto;
+}
+
 header {
   display: flex;
   justify-content: space-between;
