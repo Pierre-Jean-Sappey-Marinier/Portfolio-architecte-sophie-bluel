@@ -926,6 +926,9 @@ li:hover {
   font-size: 1.2em;
   background-color: transparent;
   border: 0px solid #f2f2f2;
+  font-family: "Work Sans";
+  font-size: 16.8px;
+  background-color: #fffef8;
 }
 .liste :hover {
   color: #b1663c;

@@ -45,7 +45,7 @@ function postFetch(email, password) {
       localStorage.setItem("token", response.token);
       localStorage.setItem("userId", response.userId);
 
-      window.location.href = "http://127.0.0.1:5500/index.html";
+      window.location.href = "index.html";
     })
     .catch(function (err) {
       console.log("Error faut refaire ENCORE", err);
